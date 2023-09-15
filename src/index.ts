@@ -48,7 +48,7 @@ export class WebAudioPeakMeter {
   async initNode() {
     const { audioMeterStandard } = this.config;
     try {
-      this.node = new AudioWorkletNode(this.srcNode.context, `${audioMeterStandard}-processor`, {
+      this.node = new window.AudioWorkletNode(this.srcNode.context, `${audioMeterStandard}-processor`, {
         parameterData: {},
       });
     } catch (err) {
@@ -57,7 +57,7 @@ export class WebAudioPeakMeter {
       const blob = new Blob([workletString], { type: 'application/javascript' });
       const objectURL = URL.createObjectURL(blob);
       await this.srcNode.context.audioWorklet.addModule(objectURL);
-      this.node = new AudioWorkletNode(this.srcNode.context, `${audioMeterStandard}-processor`, {
+      this.node = new window.AudioWorkletNode(this.srcNode.context, `${audioMeterStandard}-processor`, {
         parameterData: {},
       });
     }
